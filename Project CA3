@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+    <style>
+        body{
+            text-align:center;
+            background: linear-gradient(45deg,rgb(243, 227, 3),rgb(48, 226, 226));
+        
+        }
+        ul{
+    
+            height: 500px;
+            margin-top: 10px;
+            position: sticky;
+            background-attachment: fixed;
+            margin-left:38%;
+        }
+        #lst{
+            margin-left: 50px;
+            border: 2px solid black;
+            position: sticky;
+            width: 1100px;
+            height: 200px;
+        }
+        #afterres{
+            border: 2px solid black; 
+            height:50px ;
+            width:100px;
+            border-radius: 8px;
+            background-color: black;
+            margin-left: 48%;
+            visibility: hidden;
+        
+        }
+        </style>
+</head>
+<body>
+    <center style="font-size: 30px;">
+        <h1>Second Most Repeated Word </h1>
+    </center>
+    <h2>Input elements as array format</h2>
+    <input type="text" id="txt" >
+    <button type="submit" id="btn" class="button">click</button><br>
+    <h3 ><u>Array of elements&nbsp;</u></h3>
+    <ul id="list" style="height: 50px;">
+        &nbsp; 
+    </ul>
+    <script>
+
+        $(document).ready(function(){
+            var items;
+
+            $("#btn").click(function () {
+                var input = $("#txt").val();
+                items = input.split(","); 
+           
+                for (var i = 0; i <= items.length - 1; i++) {
+
+                    if (input != "") {
+                        let divElement = document.createElement('div')
+
+                        // create text node
+                        let divElementText = document.createTextNode(items[i] + " ");
+
+                        // append text node to div
+                        divElement.appendChild(divElementText)
+
+                        // append div element to document
+                        document.getElementById("list").appendChild(divElement);
+
+                        $('div').css({
+
+                            "border": "2px solid black",
+                            "float":"left",
+                            "width": "30px",
+                            "margin-top": "20px",
+                            "height": "20px",
+                            "fontSize": "20px",
+                            "paddingTop": "20px",
+                            "paddingBottom": "20px",
+                            "background": "wheat",
+                            "boxShadow": "0 2px 3px 0 rgba(0,0,0,.1)",
+                            "borderRadius": "8px",
+                            "color": "black",
+                            
+                        })
+
+                    }
+                }
+
+            })
+
+
+            //result button
+            $("#res").click(function(){
+
+                $("#afterres").css("visibility","visible");
+                
+
+                function secMostRepeated(seq)
+        {
+         
+            // Store all the words with its occurrence
+            let occ = new Map();
+            for (let i = 0; i < seq.length; i++)
+            {
+                if(occ.has(seq[i])){
+                    occ.set(seq[i], occ.get(seq[i])+1);
+                }
+                else occ.set(seq[i], 1);
+            }
+         
+            // find the second largest occurrence
+            let first_max = Number.MIN_VALUE, sec_max = Number.MIN_VALUE;
+            for (let [key,value] of occ) {
+                if (value > first_max) {
+                    sec_max = first_max;
+                    first_max = value;
+                }
+         
+                else if (value > sec_max && value != first_max)
+                    sec_max = value;
+            }
+         
+            // Return string with occurrence equals
+            // to sec_max
+            for (let [key,value] of occ)
+                if (value == sec_max)
+                    return key;
+        }
+         
+                  $("#afterres").text(secMostRepeated(items)); 
+            })
+
+        })
+ 
+      
+        </script>
+        <br>
+        <button id="res" style="margin-top: 50px;">RESULT</button>
+        <h3><u>After finding the result of sequence&nbsp;</u></h3>
+        
+        <div id="afterres"></div>
+</body>
+</html>
